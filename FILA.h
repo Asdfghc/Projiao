@@ -36,12 +36,12 @@ typedef struct fila {
 } Fila;
 
 
-int VaziaFila (Fila* f) {
+int vaziaFila (Fila* f) {
     if (f->ini == NULL) return 1;
     return 0;
 }
 
-Fila* CriaFila () {
+Fila* criaFila () {
     Fila* f = (Fila*) malloc(sizeof(Fila));
     f->ini = f->fim = NULL;
     return f;
@@ -58,13 +58,13 @@ No* ins_fim (No *fim, char codigo[4], Horario horario, int numPassageiros) {
     return p;
 }
 
-void InsereFila (Fila* f, char codigo[4], Horario horario, int numPassageiros) {
+void insereFila (Fila* f, char codigo[4], Horario horario, int numPassageiros) {
     f->fim = ins_fim(f->fim, codigo, horario, numPassageiros);
     if (f->ini==NULL) /* fila antes vazia? */
     f->ini = f->fim;
 }
 
-No* RetiraFila (Fila* f) {
+No* retiraFila (Fila* f) {
     if (VaziaFila(f))
     {
         printf("Fila vazia.\n");

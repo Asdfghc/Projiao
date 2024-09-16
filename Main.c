@@ -11,18 +11,18 @@ int main() {
     setlocale(LC_ALL, "Portuguese");
 
     Fila *emergencia = NULL;
-    emergencia = CriaFila();
+    emergencia = criaFila();
 
     Fila *normal = NULL;
-    normal = CriaFila();
+    normal = criaFila();
 
     Fila *pouso = NULL;
-    pouso = CriaFila();
+    pouso = criaFila();
 
     srand((unsigned int)time(NULL));   // Initialization, should only be called once
     Horario horarioSistema;
-    horarioSistema.hora = rand() % (23 + 1 - 0) + 0;  // Returns a pseudo-random integer between 0 and RAND_MAX
-    horarioSistema.minuto = rand() % (59 + 1 - 0) + 0;  // Returns a pseudo-random integer between 0 and RAND_MAX
+    horarioSistema.hora = rand() % (23 + 1 - 0) + 0;  // Returns a pseudo-random integer between 0 and 23
+    horarioSistema.minuto = rand() % (59 + 1 - 0) + 0;  // Returns a pseudo-random integer between 0 and 59
 
     int minutos;
 
@@ -44,11 +44,11 @@ int main() {
             case 2:
                 if (vaziaFila(emergencia) == 1) {
                     No* aux = RetiraFila(normal);
-                    InsereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
+                    insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                 }
                 else {
                     No* aux = RetiraFila(emergencia);
-                    InsereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
+                    insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                 }
                 break;
             case 3:
@@ -58,7 +58,7 @@ int main() {
 
                 break;
             case 5:
-
+                imprimeFila(emergencia);
                 break;
             case 6:
                 printf("\nInsira o tempo a avançar (em minutos): ");
@@ -66,7 +66,7 @@ int main() {
                 horarioSistema.minuto += minutos;
                 horarioSistema.hora += horarioSistema.minuto / 60;
                 horarioSistema.minuto = horarioSistema.minuto % 60;
-                horarioSistema.hora = horarioSistema.hora % 24; 
+                horarioSistema.hora = horarioSistema.hora % 24;
                 break;
             case 7:
                 return 0;
