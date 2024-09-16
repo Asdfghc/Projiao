@@ -33,15 +33,14 @@ int main() {
 
                 break;
             case 2:
-                if (vaziaFila(emergencia) == 1)
-                {
-                    InsereFila(pouso,RetiraFila(normal));
+                if (vaziaFila(emergencia) == 1) {
+                    No* aux = RetiraFila(normal);
+                    InsereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                 }
-                else
-                {
-                    InsereFila(pouso, RetiraFila(emergencia));
+                else {
+                    No* aux = RetiraFila(emergencia);
+                    InsereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                 }
-
                 break;
             case 3:
 
@@ -53,7 +52,7 @@ int main() {
 
                 break;
             case 6:
-
+                
                 break;
             case 7:
                 return 0;
