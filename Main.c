@@ -9,6 +9,15 @@ int main() {
 
     setlocale(LC_ALL, "Portuguese");
 
+    Fila *emergencia = NULL;
+    emergencia = CriaFila();
+
+    Fila *normal = NULL;
+    normal = CriaFila();
+
+    Fila *pouso = NULL;
+    pouso = CriaFila();
+
     int opcao;
     while (1) {
         printf("1. Inserir uma aeronave à fila de espera para o pouso\n");
@@ -24,6 +33,14 @@ int main() {
 
                 break;
             case 2:
+                if (vaziaFila(emergencia) == 1)
+                {
+                    InsereFila(pouso,RetiraFila(normal));
+                }
+                else
+                {
+                    InsereFila(pouso, RetiraFila(emergencia));
+                }
 
                 break;
             case 3:
