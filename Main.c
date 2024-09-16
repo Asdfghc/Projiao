@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 #include <string.h>
+#include <time.h>
 #include "FILA.h"
 
 
@@ -18,8 +19,16 @@ int main() {
     Fila *pouso = NULL;
     pouso = CriaFila();
 
+    srand((unsigned int)time(NULL));   // Initialization, should only be called once
+    Horario horarioSistema;
+    horarioSistema.hora = rand() % (23 + 1 - 0) + 0;  // Returns a pseudo-random integer between 0 and RAND_MAX
+    horarioSistema.minuto = rand() % (59 + 1 - 0) + 0;  // Returns a pseudo-random integer between 0 and RAND_MAX
+
+    int minutos;
+
     int opcao;
     while (1) {
+        printf("Horário atual: %.2d:%.2d\n", horarioSistema.hora, horarioSistema.minuto);
         printf("1. Inserir uma aeronave à fila de espera para o pouso\n");
         printf("2. Autorizar uma aeronave a pousar\n");
         printf("3. Imprimir um Relatório com as aeronaves na fila para pouso\n");
@@ -52,7 +61,12 @@ int main() {
 
                 break;
             case 6:
-                
+                printf("\nInsira o tempo a avançar (em minutos): ");
+                scanf("%d", &minutos);
+                horarioSistema.minuto += minutos;
+                horarioSistema.hora += horarioSistema.minuto / 60;
+                horarioSistema.minuto = horarioSistema.minuto % 60;
+                horarioSistema.hora = horarioSistema.hora % 24; 
                 break;
             case 7:
                 return 0;
