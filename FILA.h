@@ -64,28 +64,17 @@ void InsereFila (Fila* f, char codigo[4], Horario horario, int numPassageiros) {
     f->ini = f->fim;
 }
 
-No* retira_ini (No* ini) {
-    No* p = ini->prox;
-    free(ini);            //TODO: passar pra outra fila
-    return p;
-}
-
-void RetiraFila (Fila* f) {
-    char codigo[4];
-    Horario horario;
-    int numPassageiros;
+No* RetiraFila (Fila* f) {
     if (VaziaFila(f))
     {
         printf("Fila vazia.\n");
         exit(0); /* aborta programa */
     }
-    strcpy(codigo, f->ini->codigo);
-    horario = f->ini->horario;
-    numPassageiros = f->ini->numPassageiros;
-    f->ini = retira_ini(f->ini);
+    No* aux = f->ini;
+    f->ini = f->ini->prox;
     if (f->ini == NULL) /* fila ficou vazia? */
     f->fim = NULL;
-    return;
+    return aux;
 }
 
 void imprimeFila (Fila* f)
