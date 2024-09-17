@@ -44,10 +44,18 @@ int main() {
             case 2:
                 if (vaziaFila(emergencia) == 1) {
                     No* aux = RetiraFila(normal);
+                    if(horarioSistema.hora!=aux.horario.hora)   aux->checkHora = 0;
+                    else {
+                        if(horarioSistema.minuto+15 > aux.horario.minuto)   aux->checkHora = 0
+                        else {
+                            aux->checkHora = 1;
+                        }
+                    }
                     insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                 }
                 else {
                     No* aux = RetiraFila(emergencia);
+                    aux->checkHora = -1;
                     insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                 }
                 break;
