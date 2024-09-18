@@ -77,6 +77,24 @@ int main() {
                 horarioSistema = passTime(horarioSistema,10);
                 break;
             case 3:
+                printf("\t \t LISTA DE VOOS DE EEMERGECNIA!!!!!!!!! \t \t \n");
+                if(!vaziaFila(emergencia))
+                {
+                    imprimeFila(emergencia);
+                }
+                else
+                {
+                    printf("\n lista vazia :( \n\n\n");
+                }
+                printf("\t \t LISTA DE VOOS \t \t \n");
+                if(!vaziaFila(normal))
+                {
+                    imprimeFila(normal);
+                }
+                else
+                {
+                    printf("\n lista vazia :( \n\n");
+                }
 
                 break;
             case 4:
