@@ -1,16 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
 #include <string.h>
+#include <stdbool.h>
+#include <ctype.h>
+#include <locale.h>
 #include <time.h>
 #include "FILA.h"
+#include "UTILITIES.h"
 
 
 int main() {
 
     setlocale(LC_ALL, "Portuguese");
+    char input[100];    //String que vai registrar a seed
 
-    Fila *emergencia = NULL;
+    printf("\n\tDigite a seed desejada para geração dos numeros: ");    //Leitura da seed
+    scanf("%s",input);
+
+    unsigned int seed = string_to_seed(input);  //Transforma a string em um int
+    srand(seed);   // Inicializa a seed
+
+    Fila *emergencia = NULL;        //Criação das filas
     emergencia = criaFila();
 
     Fila *normal = NULL;
@@ -19,34 +29,40 @@ int main() {
     Fila *pouso = NULL;
     pouso = criaFila();
 
-    srand((unsigned int)time(NULL));   // Initialization, should only be called once
-    Horario horarioSistema;
-    horarioSistema.hora = rand() % (23 + 1 - 0) + 0;  // Returns a pseudo-random integer between 0 and 23
-    horarioSistema.minuto = rand() % (59 + 1 - 0) + 0;  // Returns a pseudo-random integer between 0 and 59
+    Horario horarioSistema;         //Criação do horario local
+    horarioSistema.hora = randomInteger(23,1);      //Gera um horario local aleatorio 
+    horarioSistema.minuto = randomInteger(59,1);
+    
+    int minutos; 
+    int opcaoNum = 0;
+    char opcao[2];
 
-    int minutos;
+    while (opcaoNum != 7) {
+        do{
+            printf("Horário atual: %.2d:%.2d\n", horarioSistema.hora, horarioSistema.minuto);
+            printf("1. Inserir uma aeronave à fila de espera para o pouso\n");
+            printf("2. Autorizar uma aeronave a pousar\n");
+            printf("3. Imprimir um Relatório com as aeronaves na fila para pouso\n");
+            printf("4. Imprimir a próxima aeronave que será autorizada a pousar\n");
+            printf("5. Imprimir todos os voos que já pousaram\n");
+            printf("6. Simular o processamento de pouso\n");
+            printf("7. Finalizar o sistema\n");
+            scanf("%s", opcao);
+            if(!digitCheck(opcao))    printf("\n\n\tErro! \t Digite um numero!\n\n");
+        }while(!digitCheck(opcao));
 
-    int opcao;
-    while (1) {
-        printf("Horário atual: %.2d:%.2d\n", horarioSistema.hora, horarioSistema.minuto);
-        printf("1. Inserir uma aeronave à fila de espera para o pouso\n");
-        printf("2. Autorizar uma aeronave a pousar\n");
-        printf("3. Imprimir um Relatório com as aeronaves na fila para pouso\n");
-        printf("4. Imprimir a próxima aeronave que será autorizada a pousar\n");
-        printf("5. Imprimir todos os voos que já pousaram\n");
-        printf("6. Simular o processamento de pouso\n");
-        printf("7. Finalizar o sistema\n");
-        scanf("%d", &opcao);
-        switch (opcao) {
+        opcaoNum = atoi(opcao);
+
+        switch (opcaoNum) {
             case 1:
 
                 break;
             case 2:
-                if (vaziaFila(emergencia) == 1) {
-                    No* aux = RetiraFila(normal);
-                    if(horarioSistema.hora!=aux.horario.hora)   aux->checkHora = 0;
+                if (vaziaFila(emergencia)) {
+                    No* aux = retiraFila(normal);
+                    if(horarioSistema.hora!=aux->horario.hora)   aux->checkHora = 0;
                     else {
-                        if(horarioSistema.minuto+15 > aux.horario.minuto)   aux->checkHora = 0
+                        if(horarioSistema.minuto+15 > aux->horario.minuto)   aux->checkHora = 0;
                         else {
                             aux->checkHora = 1;
                         }
@@ -54,7 +70,7 @@ int main() {
                     insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                 }
                 else {
-                    No* aux = RetiraFila(emergencia);
+                    No* aux = retiraFila(emergencia);
                     aux->checkHora = -1;
                     insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                 }
@@ -69,17 +85,17 @@ int main() {
                 imprimeFila(emergencia);
                 break;
             case 6:
+                //int minutos; talvez aqui seja melhor para a variavel só ficar nessa instancia, e nao ocupar espaço de memoria desnecessario  
                 printf("\nInsira o tempo a avançar (em minutos): ");
                 scanf("%d", &minutos);
-                horarioSistema.minuto += minutos;
-                horarioSistema.hora += horarioSistema.minuto / 60;
-                horarioSistema.minuto = horarioSistema.minuto % 60;
-                horarioSistema.hora = horarioSistema.hora % 24;
+                horarioSistema = passTime (horarioSistema,minutos);
                 break;
             case 7:
-                return 0;
+                break;
+            default:
+                printf("\n\n\t Digite uma opção válida\n\n");
                 break;
         }
     }
-
+    return 0;
 }

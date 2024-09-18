@@ -3,13 +3,13 @@
 
 /* FUNCOES DE MANIPULACAO DE FILA
 
-Fila* CriaFila()  CRIA A FILA
+Fila* criaFila()  CRIA A FILA
 
-int VaziaFila (Fila* f) VERIFICA SE A FILA ESTA VAIZA
+int vaziaFila (Fila* f) VERIFICA SE A FILA ESTA VAIZA
 
-void InsereFila (Fila* f, int v) INSERSAO
+void insereFila (Fila* f, int v) INSERSAO
 
-int RetiraFila (Fila* f) REMOCAO
+int retiraFila (Fila* f) REMOCAO
 
 Fila* liberaFila (Fila* f) LIBERA A FILA
 
@@ -36,9 +36,9 @@ typedef struct fila {
 } Fila;
 
 
-int vaziaFila (Fila* f) {
-    if (f->ini == NULL) return 1;
-    return 0;
+bool vaziaFila (Fila* f) {
+    if (f->ini == NULL) return true;
+    return false;
 }
 
 Fila* criaFila () {
@@ -65,7 +65,7 @@ void insereFila (Fila* f, char codigo[4], Horario horario, int numPassageiros) {
 }
 
 No* retiraFila (Fila* f) {
-    if (VaziaFila(f))
+    if (vaziaFila(f))
     {
         printf("Fila vazia.\n");
         exit(0); /* aborta programa */
@@ -100,16 +100,6 @@ Fila* liberaFila (Fila* f)
     free(f);
     return NULL;
 }
-
-int vaziaFila(Fila *f)
-{
-    if (f->ini==NULL)
-    {
-        return 1; //fila vazia
-    }
-    return 0;
-}
-
 
 int tamanhoFila(Fila* f) {
     int count = 0;
