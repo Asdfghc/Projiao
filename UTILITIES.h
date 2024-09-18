@@ -12,11 +12,11 @@ unsigned int string_to_seed(const char *str)    RETORNA UMA STRING COMO A SOMATO
 bool digitCheck(char key[])     RETORNA true SE NA STRING SÓ CONTER NUMEROS E false SE TIVER ALGO ALEM
 
 */
-int randomInteger(int SupLimit, int InfLimit){
+int randomInteger(int SupLimit, int InfLimit) {
     return rand() % (SupLimit + 1 - InfLimit) + InfLimit;
 }
 
-Horario passTime(Horario Time, int forward){
+Horario passTime(Horario Time, int forward) {
     Time.minuto += forward;
     Time.hora += Time.minuto / 60;
     Time.minuto %= 60;
@@ -34,7 +34,7 @@ unsigned int string_to_seed(const char *str) {
 }
 
 bool digitCheck(char key[]){
-    for (int i =0; i < strlen(key); i++)
+    for (unsigned int i = 0; i < strlen(key); i++)
     {
         if(isdigit(key[i])==0)  return false;
     }

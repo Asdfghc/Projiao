@@ -11,9 +11,13 @@ void insereFila (Fila* f, int v) INSERSAO
 
 int retiraFila (Fila* f) REMOCAO
 
-Fila* liberaFila (Fila* f) LIBERA A FILA
+void imprimeFilaComCheckHora (Fila* f) IMPRIME A FILA COM O CHECK_HORA
 
 void imprimeFila (Fila* f) IMPRIME A FILA
+
+Fila* liberaFila (Fila* f) LIBERA A FILA
+
+int tamanhoFila (Fila* f) RETORNA O TAMANHO DA FILA
 
 */
 
@@ -75,6 +79,17 @@ No* retiraFila (Fila* f) {
     if (f->ini == NULL) /* fila ficou vazia? */
     f->fim = NULL;
     return aux;
+}
+
+void imprimeFilaComCheckHora (Fila* f)
+{
+    No* q;
+    printf("\n\t\t");
+    for (q=f->ini; q!=NULL; q=q->prox)
+    {
+        printf("%s\t%d:%d\t%d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
+    }
+    printf("\n");
 }
 
 void imprimeFila (Fila* f)
