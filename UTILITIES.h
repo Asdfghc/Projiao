@@ -7,6 +7,10 @@ int randomInteger(int SupLimit, int InfLimit)   RETORNA UM NUMERO ALEATORIO EM C
 
 Horario passTime(Horario Time, int forward)     RETORNA A PASSAGEM DE X MINUTOS
 
+unsigned int string_to_seed(const char *str)    RETORNA UMA STRING COMO A SOMATORIA DO CODIGO ASC DE CADA CARACTER
+
+bool digitCheck(char key[])     RETORNA true SE NA STRING SÓ CONTER NUMEROS E false SE TIVER ALGO ALEM
+
 */
 int randomInteger(int SupLimit, int InfLimit){
     return rand() % (SupLimit + 1 - InfLimit) + InfLimit;

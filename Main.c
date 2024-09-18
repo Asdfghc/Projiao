@@ -74,6 +74,7 @@ int main() {
                     aux->checkHora = -1;
                     insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                 }
+                horarioSistema = passTime(horarioSistema,10);
                 break;
             case 3:
 
