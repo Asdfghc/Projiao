@@ -23,7 +23,7 @@ typedef struct Horario {
 } Horario;
 
 typedef struct No {
-    char codigo[4];
+    char codigo[5];
     Horario horario;
     int numPassageiros;
     int checkHora;
@@ -47,7 +47,7 @@ Fila* criaFila () {
     return f;
 }
 
-No* ins_fim (No *fim, char codigo[4], Horario horario, int numPassageiros) {
+No* ins_fim (No *fim, char codigo[5], Horario horario, int numPassageiros) {
     No *p = (No*)malloc(sizeof(No));
     strcpy(codigo, p->codigo);
     p->horario = horario;
@@ -58,7 +58,7 @@ No* ins_fim (No *fim, char codigo[4], Horario horario, int numPassageiros) {
     return p;
 }
 
-void insereFila (Fila* f, char codigo[4], Horario horario, int numPassageiros) {
+void insereFila (Fila* f, char codigo[5], Horario horario, int numPassageiros) {
     f->fim = ins_fim(f->fim, codigo, horario, numPassageiros);
     if (f->ini==NULL) /* fila antes vazia? */
     f->ini = f->fim;

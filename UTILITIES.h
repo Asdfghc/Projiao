@@ -16,6 +16,15 @@ int randomInteger(int SupLimit, int InfLimit){
     return rand() % (SupLimit + 1 - InfLimit) + InfLimit;
 }
 
+void randomAlphaNumeric(char* code) {
+    char alphabet[62] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    for(int i = 0; i < 4; i++) {
+        int randomIndex = rand() % (sizeof(alphabet) - 1);
+        code[i] = alphabet[randomIndex];
+    }
+    code[5] = '\0';
+}
+
 Horario passTime(Horario Time, int forward){
     Time.minuto += forward;
     Time.hora += Time.minuto / 60;
