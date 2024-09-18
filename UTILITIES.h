@@ -16,16 +16,7 @@ int randomInteger(int SupLimit, int InfLimit) {
     return rand() % (SupLimit + 1 - InfLimit) + InfLimit;
 }
 
-void randomAlphaNumeric(char* code) {
-    char alphabet[62] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    for(int i = 0; i < 4; i++) {
-        int randomIndex = rand() % (sizeof(alphabet) - 1);
-        code[i] = alphabet[randomIndex];
-    }
-    code[5] = '\0';
-}
-
-Horario passTime(Horario Time, int forward){
+Horario passTime(Horario Time, int forward) {
     Time.minuto += forward;
     Time.hora += Time.minuto / 60;
     Time.minuto %= 60;
@@ -48,6 +39,38 @@ bool digitCheck(char key[]){
         if(isdigit(key[i])==0)  return false;
     }
     return true;
+}
+
+void ProximoVooPrint (Fila*emergencia,Fila*normal)
+{
+No *a;
+if(!vaziaFila(emergencia))
+    {
+        a = emergencia -> ini;
+        printf("\nAtenção o Proximo voo é de emergencia!! \n");
+        printf("\nO codigo do Próximo Voo de emergencia é: %s\n", a -> codigo);
+        printf("\nO Numero de passageiros do Próximo de emergencia Voo é: %d\n", a ->numPassageiros);
+    }
+    else
+    {
+        a = emergencia -> ini;
+        printf("\n Informações do Proximo voo normal \n");
+        printf("\nO codigo do Próximo Voo é: %s\n", a -> codigo);
+        printf("\nO Numero de passageiros do Próximo Voo é: %d\n", a ->numPassageiros);
+    }
+}
+
+No *ProximoVoo (Fila*emergencia, Fila*normal)
+{
+    No *a;
+    if(!vaziaFila(emergencia))
+    {
+        a = emergencia -> ini;
+    }
+    else
+    {
+        a = normal -> ini;
+    }
 }
 
 #endif //UTILITIES_H_INCLUDED

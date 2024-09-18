@@ -55,32 +55,7 @@ int main() {
 
         switch (opcaoNum) {
             case 1:
-                Horario horaEsperada;
-                char codVoo[5];
-                int numeroPassageiro, optEmergencia;
-                randomAlphaNumeric(codVoo);
-                printf("Voo %s\n\n",codVoo);
-                printf("\tHorario previsto de chegada: \n\tHora: ");
-                scanf("%d",&horaEsperada.hora);
-                printf("\tMinuto: ");
-                scanf("%d",&horaEsperada.minuto);
 
-                do{
-                    printf("\tNumero de passageiros: ");
-                    scanf("%d",&numeroPassageiro);
-                    if(numeroPassageiro>200 || numeroPassageiro<50)    printf("\n\n\tO numero de passageiros tem que ter no minimo 50 e no maximo 200!\n\n");
-                }while(numeroPassageiro>200 || numeroPassageiro<50);
-                
-                do{
-                    printf("\n\tNecessita de um pouso de emergência?\n(0 - Não, 1 - Sim)\n\t\tR: ");
-                    scanf("%d",&optEmergencia);
-                    if(optEmergencia>1 || optEmergencia<0)    printf("\n\n\tApenas 0 ou 1\n\n");
-                }while(optEmergencia>1 || optEmergencia<0);
-
-                if(optEmergencia)  insereFila(emergencia,codVoo,horaEsperada,numeroPassageiro);
-                else{
-                    insereFila(normal,codVoo,horaEsperada,numeroPassageiro);
-                }
                 break;
             case 2:
                 if (vaziaFila(emergencia)) {
@@ -122,7 +97,7 @@ int main() {
                 }
                 break;
             case 4:
-
+                ProximoVooPrint(emergencia,normal);
                 break;
             case 5:
                 imprimeFilaComCheckHora(pouso);
