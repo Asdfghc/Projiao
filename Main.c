@@ -102,21 +102,44 @@ int main() {
                 horarioSistema = passTime(horarioSistema,10);
                 break;
             case 3:
-
+                printf("\t \t LISTA DE VOOS DE EMERGÊNCIA \t \t \n");
+                if(!vaziaFila(emergencia))
+                {
+                    imprimeFila(emergencia);
+                }
+                else
+                {
+                    printf("\n lista vazia :( \n\n\n");
+                }
+                printf("\t \t LISTA DE VOOS \t \t \n");
+                if(!vaziaFila(normal))
+                {
+                    imprimeFila(normal);
+                }
+                else
+                {
+                    printf("\n lista vazia :( \n\n");
+                }
                 break;
             case 4:
 
                 break;
             case 5:
-                imprimeFila(emergencia);
+                imprimeFilaComCheckHora(pouso);
                 break;
             case 6:
                 //int minutos; talvez aqui seja melhor para a variavel só ficar nessa instancia, e nao ocupar espaço de memoria desnecessario  
                 printf("\nInsira o tempo a avançar (em minutos): ");
                 scanf("%d", &minutos);
-                horarioSistema = passTime (horarioSistema,minutos);
+                horarioSistema = passTime(horarioSistema,minutos);
                 break;
-            case 7:
+            case 8:
+                printf("FILA NORMAL!!!!!!!!!!!!!!1!11!\n");
+                imprimeFilaComCheckHora(normal);
+                printf("FILA EMERGENCIA!!!!!!!!!!!!!!1!11!\n");
+                imprimeFilaComCheckHora(emergencia);
+                printf("FILA POUSADOS!!!!!!!!!!!!!!1!11!\n");
+                imprimeFilaComCheckHora(pouso);
                 break;
             default:
                 printf("\n\n\t Digite uma opção válida\n\n");

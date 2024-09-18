@@ -12,10 +12,11 @@ unsigned int string_to_seed(const char *str)    RETORNA UMA STRING COMO A SOMATO
 bool digitCheck(char key[])     RETORNA true SE NA STRING SÓ CONTER NUMEROS E false SE TIVER ALGO ALEM
 
 */
-int randomInteger(int SupLimit, int InfLimit){
+int randomInteger(int SupLimit, int InfLimit) {
     return rand() % (SupLimit + 1 - InfLimit) + InfLimit;
 }
 
+<<<<<<< HEAD
 void randomAlphaNumeric(char* code) {
     char alphabet[62] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     for(int i = 0; i < 4; i++) {
@@ -26,6 +27,9 @@ void randomAlphaNumeric(char* code) {
 }
 
 Horario passTime(Horario Time, int forward){
+=======
+Horario passTime(Horario Time, int forward) {
+>>>>>>> 923231fcd5eb8ecfe9cdabea2ace20aa0ffca89c
     Time.minuto += forward;
     Time.hora += Time.minuto / 60;
     Time.minuto %= 60;
@@ -43,7 +47,7 @@ unsigned int string_to_seed(const char *str) {
 }
 
 bool digitCheck(char key[]){
-    for (int i =0; i < strlen(key); i++)
+    for (unsigned int i = 0; i < strlen(key); i++)
     {
         if(isdigit(key[i])==0)  return false;
     }
