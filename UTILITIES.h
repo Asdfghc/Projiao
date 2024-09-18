@@ -60,12 +60,15 @@ if(!vaziaFila(emergencia))
         printf("\nO codigo do Próximo Voo de emergencia é: %s\n", a -> codigo);
         printf("\nO Numero de passageiros do Próximo de emergencia Voo é: %d\n", a ->numPassageiros);
     }
-    else
+    else if(!vaziaFila(normal))
     {
-        a = emergencia -> ini;
+        a = normal -> ini;
         printf("\n Informações do Proximo voo normal \n");
         printf("\nO codigo do Próximo Voo é: %s\n", a -> codigo);
         printf("\nO Numero de passageiros do Próximo Voo é: %d\n", a ->numPassageiros);
+    }
+    else {
+        printf("Não há voos previstos");
     }
 }
 
@@ -80,6 +83,7 @@ No *ProximoVoo (Fila*emergencia, Fila*normal)
     {
         a = normal -> ini;
     }
+    return a;
 }
 
 #endif //UTILITIES_H_INCLUDED

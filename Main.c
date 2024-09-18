@@ -37,6 +37,10 @@ int main() {
     int opcaoNum = 0;
     char opcao[2];
 
+    Horario horaEsperada;
+    char codVoo[5];
+    int numeroPassageiro, optEmergencia;
+
     while (opcaoNum != 7) {
         do{
             printf("Horário atual: %.2d:%.2d\n", horarioSistema.hora, horarioSistema.minuto);
@@ -55,10 +59,6 @@ int main() {
 
         switch (opcaoNum) {
             case 1:
-
-            Horario horaEsperada;
-                char codVoo[5];
-                int numeroPassageiro, optEmergencia;
                 randomAlphaNumeric(codVoo);
                 printf("Voo %s\n\n",codVoo);
                 printf("\tHorario previsto de chegada: \n\tHora: ");
@@ -66,26 +66,31 @@ int main() {
                 printf("\tMinuto: ");
                 scanf("%d",&horaEsperada.minuto);
 
-                do{
+                do {
                     printf("\tNumero de passageiros: ");
                     scanf("%d",&numeroPassageiro);
                     if(numeroPassageiro>200 || numeroPassageiro<50)    printf("\n\n\tO numero de passageiros tem que ter no minimo 50 e no maximo 200!\n\n");
-                }while(numeroPassageiro>200 || numeroPassageiro<50);
+                } while(numeroPassageiro>200 || numeroPassageiro<50);
                 
-                do{
+                do {
                     printf("\n\tNecessita de um pouso de emergência?\n(0 - Não, 1 - Sim)\n\t\tR: ");
                     scanf("%d",&optEmergencia);
                     if(optEmergencia>1 || optEmergencia<0)    printf("\n\n\tApenas 0 ou 1\n\n");
-                }while(optEmergencia>1 || optEmergencia<0);
+                } while(optEmergencia>1 || optEmergencia<0);
 
                 if(optEmergencia)  insereFila(emergencia,codVoo,horaEsperada,numeroPassageiro);
-                else{
+                else {
                     insereFila(normal,codVoo,horaEsperada,numeroPassageiro);
                 }
 
                 break;
             case 2:
-                if (vaziaFila(emergencia)) {
+                if (!vaziaFila(emergencia)) {
+                    No* aux = retiraFila(emergencia);
+                    aux->checkHora = -1;
+                    insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
+                    horarioSistema = passTime(horarioSistema, 10);
+                } else if (!vaziaFila(normal)) {
                     No* aux = retiraFila(normal);
                     if(horarioSistema.hora!=aux->horario.hora)   aux->checkHora = 0;
                     else {
@@ -95,13 +100,11 @@ int main() {
                         }
                     }
                     insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
+                    horarioSistema = passTime(horarioSistema, 10);
+                } else {
+                    printf("Não há voos previstos");
                 }
-                else {
-                    No* aux = retiraFila(emergencia);
-                    aux->checkHora = -1;
-                    insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
-                }
-                horarioSistema = passTime(horarioSistema,10);
+
                 break;
             case 3:
                 printf("\t \t LISTA DE VOOS DE EMERGÊNCIA \t \t \n");

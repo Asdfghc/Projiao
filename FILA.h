@@ -53,7 +53,7 @@ Fila* criaFila () {
 
 No* ins_fim (No *fim, char codigo[5], Horario horario, int numPassageiros) {
     No *p = (No*)malloc(sizeof(No));
-    strcpy(codigo, p->codigo);
+    strcpy(p->codigo, codigo);
     p->horario = horario;
     p->numPassageiros = numPassageiros;
     p->prox = NULL;
@@ -87,7 +87,7 @@ void imprimeFilaComCheckHora (Fila* f)
     printf("\n\t\t");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
-        printf("%s\t%d:%d\t%d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
+        printf("%s\t%.2d:%.2d\t%d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
     }
     printf("\n");
 }
@@ -98,7 +98,7 @@ void imprimeFila (Fila* f)
     printf("\n\t\t");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
-        printf("%s\t%d:%d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros);
+        printf("%s\t%.2d:%.2d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros);
     }
     printf("\n");
 }
