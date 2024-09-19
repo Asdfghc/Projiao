@@ -61,22 +61,25 @@ int main() {
             case 1:
                 randomAlphaNumeric(codVoo);
                 printf("Voo %s\n\n",codVoo);
-                printf("\tHorario previsto de chegada: \n\tHora: ");
-                scanf("%d",&horaEsperada.hora);
-                printf("\tMinuto: ");
-                scanf("%d",&horaEsperada.minuto);
-
+                do{
+                    printf("\tHorario previsto de chegada: \n\tHora: ");
+                    scanf("%d",&horaEsperada.hora);
+                    printf("\tMinuto: ");
+                    scanf("%d",&horaEsperada.minuto);
+                    if(outOfRange(horaEsperada.hora,23,0) || outOfRange(horaEsperada.minuto,59,0))    printf("\n\n\tHorario Invalido!\n\n");
+                }while(outOfRange(horaEsperada.hora,23,0) || outOfRange(horaEsperada.minuto,59,0));
+                
                 do {
                     printf("\tNumero de passageiros: ");
                     scanf("%d",&numeroPassageiro);
-                    if(numeroPassageiro>200 || numeroPassageiro<50)    printf("\n\n\tO numero de passageiros tem que ter no minimo 50 e no maximo 200!\n\n");
-                } while(numeroPassageiro>200 || numeroPassageiro<50);
+                    if(outOfRange(numeroPassageiro,200,50))    printf("\n\n\tO numero de passageiros tem que ter no minimo 50 e no maximo 200!\n\n");
+                } while(outOfRange(numeroPassageiro,200,50));
                 
                 do {
                     printf("\n\tNecessita de um pouso de emergência?\n(0 - Não, 1 - Sim)\n\t\tR: ");
                     scanf("%d",&optEmergencia);
-                    if(optEmergencia>1 || optEmergencia<0)    printf("\n\n\tApenas 0 ou 1\n\n");
-                } while(optEmergencia>1 || optEmergencia<0);
+                    if(outOfRange(optEmergencia,1,0))    printf("\n\n\tApenas 0 ou 1\n\n");
+                } while(outOfRange(optEmergencia,1,0));
 
                 if(optEmergencia)  insereFila(emergencia,codVoo,horaEsperada,numeroPassageiro);
                 else {
