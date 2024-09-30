@@ -33,6 +33,13 @@ Horario passTime(Horario Time, int forward){
     return Time;
 }
 
+bool comparaHorario(Horario horario1, Horario horario2) {
+    if (horario1.hora < horario2.hora) return true;
+    if (horario1.hora == 23 && horario2.hora == 0) return true;
+    if (horario1.hora == horario2.hora && horario1.minuto < horario2.minuto) return true;
+    return false;
+}
+
 unsigned int string_to_seed(const char *str) {
     unsigned int seed = 0;
     for(int i = 0; str[i]!= '\0';i++)

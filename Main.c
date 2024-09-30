@@ -95,12 +95,9 @@ int main() {
                     horarioSistema = passTime(horarioSistema, 10);
                 } else if (!vaziaFila(normal)) {
                     No* aux = retiraFila(normal);
-                    if(horarioSistema.hora!=aux->horario.hora)   aux->checkHora = 0;
+                    if(!comparaHorario(passTime(horarioSistema, 15), aux->horario))   aux->checkHora = 0;
                     else {
-                        if(horarioSistema.minuto+15 > aux->horario.minuto)   aux->checkHora = 0;
-                        else {
-                            aux->checkHora = 1;
-                        }
+                        aux->checkHora = 1;
                     }
                     insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
                     horarioSistema = passTime(horarioSistema, 10);
@@ -139,7 +136,30 @@ int main() {
                 //int minutos; talvez aqui seja melhor para a variavel só ficar nessa instancia, e nao ocupar espaço de memoria desnecessario  
                 printf("\nInsira o tempo a avançar (em minutos): ");
                 scanf("%d", &minutos);
-                horarioSistema = passTime(horarioSistema,minutos);
+                Horario horarioFinal = passTime(horarioSistema, minutos);
+                Horario horarioSimulado = horarioSistema;
+
+                Fila* aux = criaFila();
+                No* aux1 = emergencia->ini;
+                while(aux1 != NULL && comparaHorario(horarioSimulado, horarioFinal)) {
+                    printf("\nHorario de autorizacao: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
+                    insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros);
+                    aux->fim->checkHora = -1;
+                    horarioSimulado = passTime (horarioSimulado, 10);
+                    aux1 = aux1->prox;
+                }
+                aux1 = normal->ini;
+                while(aux1 != NULL && comparaHorario(horarioSimulado, horarioFinal)) {
+                    printf("\nHorário de autorização: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
+                    insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros);
+                    if(comparaHorario(passTime(aux1->horario, 15), horarioSimulado)) aux->fim->checkHora = 1;
+                    else {aux->fim->checkHora = 0;}
+                    horarioSimulado = passTime(horarioSimulado, 10);
+                    aux1 = aux1->prox;
+                }
+                imprimeFilaComCheckHora(aux);
+                aux = liberaFila(aux);
+                free(aux);
                 break;
             case 8:
                 printf("FILA NORMAL!!!!!!!!!!!!!!1!11!\n");
