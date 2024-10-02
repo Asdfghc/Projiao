@@ -60,23 +60,24 @@ bool digitCheck(char key[]){
 void ProximoVooPrint (Fila*emergencia,Fila*normal)
 {
     No *a;
-    if(!vaziaFila(emergencia))
-        {
-            a = emergencia -> ini;
-            printf("\nAtenção o Proximo voo é de emergencia!! \n");
-            printf("\nO codigo do Próximo Voo de emergencia é: %s\n", a -> codigo);
-            printf("\nO Numero de passageiros do Próximo de emergencia Voo é: %d\n", a ->numPassageiros);
-        }
-        else if(!vaziaFila(normal))
-        {
-            a = normal -> ini;
-            printf("\n Informações do Proximo voo normal \n");
-            printf("\nO codigo do Próximo Voo é: %s\n", a -> codigo);
-            printf("\nO Numero de passageiros do Próximo Voo é: %d\n", a ->numPassageiros);
-        }
-        else {
-            printf("Não há voos previstos");
-        }
+    printf("\n\n");
+    if(!vaziaFila(emergencia)) 
+    {
+        a = emergencia -> ini;
+        printf("\t\tAtenção o Proximo voo é de emergencia!! \n");
+        printf("\t\tO codigo do Próximo Voo de emergencia é: %s\n", a -> codigo);
+        printf("\t\tO Numero de passageiros do Próximo de emergencia Voo é: %d\n", a ->numPassageiros);
+    }
+    else if(!vaziaFila(normal))
+    {
+        a = normal -> ini;
+        printf("\t\tInformações do Proximo voo \n");
+        printf("\t\tO codigo do Próximo Voo é: %s\n", a -> codigo);
+        printf("\t\tO Numero de passageiros do Próximo Voo é: %d\n", a ->numPassageiros);
+    }
+    else {
+        printf("\t\tNão há voos previstos\n");
+    }
 }
 
 No *ProximoVoo (Fila*emergencia, Fila*normal)

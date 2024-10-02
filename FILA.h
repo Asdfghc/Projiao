@@ -87,20 +87,22 @@ void imprimeFilaComCheckHora (Fila* f)
     printf("\n\t\t");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
-        printf("%s\t%.2d:%.2d\t%d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
+        printf("\t\t%s\t%.2d:%.2d\t%d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
     }
     printf("\n");
+    system("pause");
 }
 
 void imprimeFila (Fila* f)
 {
     No* q;
-    printf("\n\t\t");
+    printf("\n\t\tCodigo\tHorario\t Numero de Passageiros\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
-        printf("%s\t%.2d:%.2d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros);
+        printf("\t\t%s\t%.2d:%.2d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros);
     }
     printf("\n");
+    system("pause");
 }
 
 Fila* liberaFila (Fila* f)
