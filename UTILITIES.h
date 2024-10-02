@@ -9,7 +9,7 @@ Horario passTime(Horario Time, int forward)     RETORNA A PASSAGEM DE X MINUTOS
 
 unsigned int string_to_seed(const char *str)    RETORNA UMA STRING COMO A SOMATORIA DO CODIGO ASC DE CADA CARACTER
 
-bool digitCheck(char key[])     RETORNA true SE NA STRING S√ì CONTER NUMEROS E false SE TIVER ALGO ALEM
+bool digitCheck(char key[])     RETORNA true SE NA STRING S” CONTER NUMEROS E false SE TIVER ALGO ALEM
 
 */
 int randomInteger(int SupLimit, int InfLimit) {
@@ -22,7 +22,7 @@ void randomAlphaNumeric(char* code) {
         int randomIndex = rand() % (sizeof(alphabet) - 1);
         code[i] = alphabet[randomIndex];
     }
-    code[5] = '\0';
+    code[4] = '\0';
 }
 
 Horario passTime(Horario Time, int forward){
@@ -52,7 +52,7 @@ unsigned int string_to_seed(const char *str) {
 bool digitCheck(char key[]){
     for (unsigned int i = 0; i < strlen(key); i++)
     {
-        if(isdigit(key[i])==0)  return false;
+        if(!isdigit(key[i]) && key[i]!='\n')  return false;
     }
     return true;
 }
@@ -64,19 +64,19 @@ void ProximoVooPrint (Fila*emergencia,Fila*normal)
     if(!vaziaFila(emergencia)) 
     {
         a = emergencia -> ini;
-        printf("\t\tAten√ß√£o o pr√≥ximo voo √© de emerg√™ncia!! \n");
-        printf("\t\tO codigo do pr√≥ximo voo de emerg√™ncia √©: %s\n", a -> codigo);
-        printf("\t\tO Numero de passageiros do Pr√≥ximo de emergencia Voo √©: %d\n", a ->numPassageiros);
+        printf("\t\tAtenÁ„o o prÛximo voo È de emergÍncia!! \n");
+        printf("\t\tO codigo do prÛximo voo de emergÍncia È: %s\n", a -> codigo);
+        printf("\t\tO Numero de passageiros do prÛximo de emergencia Voo È: %d\n", a ->numPassageiros);
     }
     else if(!vaziaFila(normal))
     {
         a = normal -> ini;
-        printf("\t\tInforma√ß√µes do pr√≥ximo voo \n");
-        printf("\t\tO c√≥digo do pr√≥ximo Voo √©: %s\n", a -> codigo);
-        printf("\t\tO n√∫mero de passageiros do pr√≥ximo voo √©: %d\n", a ->numPassageiros);
+        printf("\t\tInformaÁıes do prÛximo voo \n");
+        printf("\t\tO cÛdigo do prÛximo Voo È: %s\n", a -> codigo);
+        printf("\t\tO n˙mero de passageiros do prÛximo voo È: %d\n", a ->numPassageiros);
     }
     else {
-        printf("\t\tN√£o h√° voos previstos\n");
+        printf("\t\tN„o h· voos previstos\n");
     }
 }
 

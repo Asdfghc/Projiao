@@ -84,7 +84,7 @@ No* retiraFila (Fila* f) {
 void imprimeFilaComCheckHora (Fila* f)
 {
     No* q;
-    printf("\n\t\t");
+    printf("\n\t\tCódigo\tHorário\t Número de Passageiros\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
         printf("\t\t%s\t%.2d:%.2d\t%d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);

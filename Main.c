@@ -12,10 +12,10 @@
 int main() {
 
     setlocale(LC_ALL, "Portuguese");
-    char input[100];    //String que vai registrar a seed
+    char input[10];    //String que vai registrar a seed
 
     printf("\n\tDigite a seed desejada para geração dos numeros: ");    //Leitura da seed
-    scanf("%s",input);
+    fgets(input, sizeof(input), stdin);
 
     unsigned int seed = string_to_seed(input);  //Transforma a string em um int
     srand(seed);   // Inicializa a seed
@@ -34,12 +34,18 @@ int main() {
     horarioSistema.minuto = randomInteger(59,1);
     
     int opcaoNum = 0;
-    char opcao[2];
+    char opcao[3];
 
     Horario horaEsperada;
     char codVoo[5];
-    int numeroPassageiro, optEmergencia;
+    int optEmergencia;
     int minutos;
+
+    char inputHora[4];
+    char inputMinuto[4];
+    char inputPassageiros[5];
+    char inputEmergencia[3];
+    char inputMinutos[5];
 
     while (opcaoNum != 7) {
         do{
@@ -53,40 +59,55 @@ int main() {
             printf("\t\t6. Simular o processamento de pouso\n");
             printf("\t\t7. Finalizar o sistema\n");
             printf("\n\tOpção: ");
-            scanf("%s", opcao);
-            if(!digitCheck(opcao))    printf("\n\n\tErro! \t Digite um número!\n\n");
-        }while(!digitCheck(opcao));
+            fflush(stdin);
+            fgets(opcao, sizeof(opcao), stdin);
+            opcaoNum = atoi(opcao);
+            if(!digitCheck(opcao) || outOfRange(opcaoNum,8,0))    printf("\n\n\tErro! \t Digite um número!\n\n");
+        }while(!digitCheck(opcao) || outOfRange(opcaoNum,8,0));
 
-        opcaoNum = atoi(opcao);
-        
+
         system("cls");
         switch (opcaoNum) {
             case 1:
                 randomAlphaNumeric(codVoo);
                 printf("\tVoo %s\n\n",codVoo);
+                int IinputHora;
+                int IinputMinuto;
                 do{
                     printf("\tHorário previsto de chegada: \n\t\tHora: ");
-                    scanf("%d",&horaEsperada.hora);
+                    fflush(stdin);
+                    fgets(inputHora, sizeof(inputHora), stdin);
+                    IinputHora = atoi(inputHora);
                     printf("\t\tMinuto: ");
-                    scanf("%d",&horaEsperada.minuto);
-                    if(outOfRange(horaEsperada.hora,23,0) || outOfRange(horaEsperada.minuto,59,0))    printf("\n\n\tHorario Invalido!\n\n");
-                }while(outOfRange(horaEsperada.hora,23,0) || outOfRange(horaEsperada.minuto,59,0));
+                    fflush(stdin);
+                    fgets(inputMinuto, sizeof(inputMinuto), stdin);
+                    IinputMinuto = atoi(inputMinuto);
+                    if(outOfRange(IinputHora,23,0) || outOfRange(IinputMinuto,59,0) || !digitCheck(inputHora) || !digitCheck(inputMinuto))    printf("\n\n\tHorário inválido!\n\n");
+                } while(outOfRange(IinputHora,23,0) || outOfRange(IinputMinuto,59,0) || !digitCheck(inputHora) || !digitCheck(inputMinuto));
+                horaEsperada.hora = IinputHora;
+                horaEsperada.minuto = IinputMinuto;
                 
+                
+                int IinputPassageiros;
                 do {
                     printf("\t\tNúmero de passageiros: ");
-                    scanf("%d",&numeroPassageiro);
-                    if(outOfRange(numeroPassageiro,200,50))    printf("\n\n\tO número de passageiros tem que ser no mínimo 50 e no máximo 200!\n\n");
-                } while(outOfRange(numeroPassageiro,200,50));
-                
+                    fflush(stdin);
+                    fgets(inputPassageiros, sizeof(inputPassageiros), stdin);
+                    IinputPassageiros = atoi(inputPassageiros);
+                    if(outOfRange(IinputPassageiros,200,50) || !digitCheck(inputPassageiros))    printf("\n\n\tO número de passageiros tem que ser no mínimo 50 e no máximo 200!\n\n");
+                } while(outOfRange(IinputPassageiros,200,50) || !digitCheck(inputPassageiros));
+
                 do {
                     printf("\n\t\tNecessita de um pouso de emergência?\n(0 - Não, 1 - Sim)\n\t\tR: ");
-                    scanf("%d",&optEmergencia);
-                    if(outOfRange(optEmergencia,1,0))    printf("\n\n\tApenas 0 ou 1\n\n");
-                } while(outOfRange(optEmergencia,1,0));
+                    fflush(stdin);
+                    fgets(inputEmergencia, sizeof(inputEmergencia), stdin);
+                    optEmergencia = atoi(inputEmergencia);
+                    if(outOfRange(optEmergencia,1,0) || !digitCheck(inputEmergencia))    printf("\n\n\tApenas 0 ou 1!\n\n");
+                } while(outOfRange(optEmergencia,1,0) || !digitCheck(inputEmergencia));
 
-                if(optEmergencia)  insereFila(emergencia,codVoo,horaEsperada,numeroPassageiro);
+                if(optEmergencia)  insereFila(emergencia,codVoo,horaEsperada,IinputPassageiros);
                 else {
-                    insereFila(normal,codVoo,horaEsperada,numeroPassageiro);
+                    insereFila(normal,codVoo,horaEsperada,IinputPassageiros);
                 }
 
                 break;
@@ -118,7 +139,7 @@ int main() {
                 }
                 else
                 {
-                    printf("\n\t\tNenhum voo de emerêencia em espera\n\n\n");
+                    printf("\n\t\tNenhum voo de emergência em espera\n\n\n");
                 }
                 printf("\t \t LISTA DE VOOS \n");
                 if(!vaziaFila(normal))
@@ -141,8 +162,14 @@ int main() {
                 system("pause");
                 break;
             case 6:
-                printf("\n\n\tInsira o tempo a avançar (em minutos): ");
-                scanf("%d", &minutos);
+                do {
+                    printf("\n\n\tInsira o tempo a avançar (em minutos): ");
+                    fflush(stdin);
+                    fgets(inputMinutos, sizeof(inputMinutos), stdin);
+                    minutos = atoi(inputMinutos);
+                    if (outOfRange(minutos,999,1) || !digitCheck(inputMinutos))     printf("\n\n\tO número de minuto tem que ser no mínimo 1 e no máximo 999!\n\n");
+                } while(outOfRange(minutos,999,1) || !digitCheck(inputMinutos));
+
                 Horario horarioFinal = passTime(horarioSistema, minutos);
                 Horario horarioSimulado = horarioSistema;
 
