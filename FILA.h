@@ -51,19 +51,20 @@ Fila* criaFila () {
     return f;
 }
 
-No* ins_fim (No *fim, char codigo[5], Horario horario, int numPassageiros) {
+No* ins_fim (No *fim, char codigo[5], Horario horario, int numPassageiros, int checkHora) {
     No *p = (No*)malloc(sizeof(No));
     strcpy(p->codigo, codigo);
     p->horario = horario;
     p->numPassageiros = numPassageiros;
+    p->checkHora = checkHora;
     p->prox = NULL;
     if (fim != NULL) /* verifica se lista nao estava vazia */
     fim->prox = p;
     return p;
 }
 
-void insereFila (Fila* f, char codigo[5], Horario horario, int numPassageiros) {
-    f->fim = ins_fim(f->fim, codigo, horario, numPassageiros);
+void insereFila (Fila* f, char codigo[5], Horario horario, int numPassageiros, int checkHora) {
+    f->fim = ins_fim(f->fim, codigo, horario, numPassageiros, checkHora);
     if (f->ini==NULL) /* fila antes vazia? */
     f->ini = f->fim;
 }
@@ -84,10 +85,10 @@ No* retiraFila (Fila* f) {
 void imprimeFilaComCheckHora (Fila* f)
 {
     No* q;
-    printf("\n\t\tCódigo\tHorário\t Número de Passageiros\n\n");
+    printf("\n\t\tCódigo\tHorário\tNúmero de Passageiros\t\tCheck-Hora\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
-        printf("\t\t%s\t%.2d:%.2d\t%d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
+        printf("\t\t%s\t%.2d:%.2d\t%d\t\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
     }
     printf("\n");
 }
@@ -95,7 +96,7 @@ void imprimeFilaComCheckHora (Fila* f)
 void imprimeFila (Fila* f)
 {
     No* q;
-    printf("\n\t\tCódigo\tHorário\t Número de Passageiros\n\n");
+    printf("\n\t\tCódigo\tHorário\tNúmero de Passageiros\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
         printf("\t\t%s\t%.2d:%.2d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros);

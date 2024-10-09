@@ -27,9 +27,9 @@ void randomAlphaNumeric(char* code) {
 
 Horario passTime(Horario Time, int forward){
     Time.minuto += forward;
-    Time.hora += Time.minuto / 60;
-    Time.minuto %= 60;
-    Time.hora %= 24;
+    Time.hora += floor((double) Time.minuto / 60);
+    Time.minuto = (1020+Time.minuto) % 60;
+    Time.hora = (24+Time.hora) % 24;
     return Time;
 }
 

@@ -5,6 +5,7 @@
 #include <ctype.h>
 #include <locale.h>
 #include <time.h>
+#include <math.h>
 #include "FILA.h"
 #include "UTILITIES.h"
 
@@ -33,18 +34,15 @@ int main() {
     horarioSistema.hora = randomInteger(23,1);      //Gera um horario local aleatorio 
     horarioSistema.minuto = randomInteger(59,1);
     
-    int opcaoNum = 0;
     char opcao[3];
+    int opcaoNum = 0;
 
     Horario horaEsperada;
     char codVoo[5];
+    int numPassageiros;
     int optEmergencia;
     int minutos;
 
-    char inputHora[4];
-    char inputMinuto[4];
-    char inputPassageiros[5];
-    char inputEmergencia[3];
     char inputMinutos[5];
 
     while (opcaoNum != 7) {
@@ -71,60 +69,31 @@ int main() {
             case 1:
                 randomAlphaNumeric(codVoo);
                 printf("\tVoo %s\n\n",codVoo);
-                int IinputHora;
-                int IinputMinuto;
-                do{
-                    printf("\tHorário previsto de chegada: \n\t\tHora: ");
-                    fflush(stdin);
-                    fgets(inputHora, sizeof(inputHora), stdin);
-                    IinputHora = atoi(inputHora);
-                    printf("\t\tMinuto: ");
-                    fflush(stdin);
-                    fgets(inputMinuto, sizeof(inputMinuto), stdin);
-                    IinputMinuto = atoi(inputMinuto);
-                    if(outOfRange(IinputHora,23,0) || outOfRange(IinputMinuto,59,0) || !digitCheck(inputHora) || !digitCheck(inputMinuto))    printf("\n\n\tHorário inválido!\n\n");
-                } while(outOfRange(IinputHora,23,0) || outOfRange(IinputMinuto,59,0) || !digitCheck(inputHora) || !digitCheck(inputMinuto));
-                horaEsperada.hora = IinputHora;
-                horaEsperada.minuto = IinputMinuto;
-                
-                
-                int IinputPassageiros;
-                do {
-                    printf("\t\tNúmero de passageiros: ");
-                    fflush(stdin);
-                    fgets(inputPassageiros, sizeof(inputPassageiros), stdin);
-                    IinputPassageiros = atoi(inputPassageiros);
-                    if(outOfRange(IinputPassageiros,200,50) || !digitCheck(inputPassageiros))    printf("\n\n\tO número de passageiros tem que ser no mínimo 50 e no máximo 200!\n\n");
-                } while(outOfRange(IinputPassageiros,200,50) || !digitCheck(inputPassageiros));
+                horaEsperada = passTime(horarioSistema, randomInteger(100, -100));
+                printf("\t\tHorário de chegada esperado: %.2d:%.2d\n", horaEsperada.hora, horaEsperada.minuto);
+                numPassageiros = randomInteger(200, 50);
+                printf("\t\tNúmero de passageiros: %d\n", numPassageiros);
+                optEmergencia = randomInteger(10, 0)<4 ? 1 : 0;
+                printf("\t\tVoo de emergência? %s\n", optEmergencia ? "Sim" : "Não");
 
-                do {
-                    printf("\n\t\tNecessita de um pouso de emergência?\n(0 - Não, 1 - Sim)\n\t\tR: ");
-                    fflush(stdin);
-                    fgets(inputEmergencia, sizeof(inputEmergencia), stdin);
-                    optEmergencia = atoi(inputEmergencia);
-                    if(outOfRange(optEmergencia,1,0) || !digitCheck(inputEmergencia))    printf("\n\n\tApenas 0 ou 1!\n\n");
-                } while(outOfRange(optEmergencia,1,0) || !digitCheck(inputEmergencia));
-
-                if(optEmergencia)  insereFila(emergencia,codVoo,horaEsperada,IinputPassageiros);
+                if(optEmergencia)  insereFila(emergencia,codVoo,horaEsperada,numPassageiros, -2);
                 else {
-                    insereFila(normal,codVoo,horaEsperada,IinputPassageiros);
+                    insereFila(normal,codVoo,horaEsperada,numPassageiros, -2);
                 }
-
+                system("pause");
                 break;
 
             case 2:
                 if (!vaziaFila(emergencia)) {
                     No* aux = retiraFila(emergencia);
                     aux->checkHora = -1;
-                    insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
+                    insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros, aux->checkHora);
                     horarioSistema = passTime(horarioSistema, 10);
                 } else if (!vaziaFila(normal)) {
                     No* aux = retiraFila(normal);
-                    if(!comparaHorario(passTime(horarioSistema, 15), aux->horario))   aux->checkHora = 0;
-                    else {
-                        aux->checkHora = 1;
-                    }
-                    insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros);
+                    if(comparaHorario(passTime(horarioSistema, 15), aux->horario)) aux->checkHora = 1;
+                    else aux->checkHora = 0;
+                    insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros, aux->checkHora);
                     horarioSistema = passTime(horarioSistema, 10);
                 } else {
                     printf("\n\tNão há voos previstos");
@@ -177,17 +146,17 @@ int main() {
                 No* aux1 = emergencia->ini;
                 while(aux1 != NULL && comparaHorario(horarioSimulado, horarioFinal)) {
                     printf("\n\n\tHorário de autorização: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
-                    insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros);
-                    aux->fim->checkHora = -1;
+                    aux1->checkHora = -1;
+                    insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros, aux1->checkHora);
                     horarioSimulado = passTime (horarioSimulado, 10);
                     aux1 = aux1->prox;
                 }
                 aux1 = normal->ini;
                 while(aux1 != NULL && comparaHorario(horarioSimulado, horarioFinal)) {
                     printf("\n\n\tHorário de autorização: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
-                    insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros);
-                    if(comparaHorario(passTime(aux1->horario, 15), horarioSimulado)) aux->fim->checkHora = 1;
-                    else {aux->fim->checkHora = 0;}
+                    if(comparaHorario(passTime(aux1->horario, 15), horarioSimulado)) aux1->checkHora = 1;
+                    else aux1->checkHora = 0;
+                    insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros, aux1->checkHora);
                     horarioSimulado = passTime(horarioSimulado, 10);
                     aux1 = aux1->prox;
                 }
