@@ -40,15 +40,15 @@ typedef struct fila {
 } Fila;
 
 
-bool vaziaFila (Fila* f) {
-    if (f->ini == NULL) return true;
-    return false;
-}
-
 Fila* criaFila () {
     Fila* f = (Fila*) malloc(sizeof(Fila));
     f->ini = f->fim = NULL;
     return f;
+}
+
+bool vaziaFila (Fila* f) {
+    if (f->ini == NULL) return true;
+    return false;
 }
 
 No* ins_fim (No *fim, char codigo[5], Horario horario, int numPassageiros, int checkHora) {
@@ -85,7 +85,7 @@ No* retiraFila (Fila* f) {
 void imprimeFilaComCheckHora (Fila* f)
 {
     No* q;
-    printf("\n\t\tCódigo\tHorário\tNúmero de Passageiros\t\tCheck-Hora\n\n");
+    printf("\n\t\tCï¿½digo\tHorï¿½rio\tNï¿½mero de Passageiros\t\tCheck-Hora\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
         printf("\t\t%s\t%.2d:%.2d\t%d\t\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
@@ -96,7 +96,7 @@ void imprimeFilaComCheckHora (Fila* f)
 void imprimeFila (Fila* f)
 {
     No* q;
-    printf("\n\t\tCódigo\tHorário\tNúmero de Passageiros\n\n");
+    printf("\n\t\tCï¿½digo\tHorï¿½rio\tNï¿½mero de Passageiros\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
         printf("\t\t%s\t%.2d:%.2d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros);

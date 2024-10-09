@@ -5,11 +5,19 @@
 
 int randomInteger(int SupLimit, int InfLimit)   RETORNA UM NUMERO ALEATORIO EM CERTO INTERVALO DEFINIDO
 
+void randomAlphaNumeric(char* code)     RETORNA UMA STRING ALEATORIA DE 4 CARACTERES
+
 Horario passTime(Horario Time, int forward)     RETORNA A PASSAGEM DE X MINUTOS
+
+bool comparaHorario(Horario horario1, Horario horario2)     COMPARA DOIS HORARIOS
 
 unsigned int string_to_seed(const char *str)    RETORNA UMA STRING COMO A SOMATORIA DO CODIGO ASC DE CADA CARACTER
 
-bool digitCheck(char key[])     RETORNA true SE NA STRING SÓ CONTER NUMEROS E false SE TIVER ALGO ALEM
+bool digitCheck(char key[])     RETORNA true SE NA STRING Sï¿½ CONTER NUMEROS E false SE TIVER ALGO ALEM
+
+void ProximoVooPrint (Fila*emergencia,Fila*normal)     IMPRIME O PROXIMO VOO
+
+bool outOfRange(int number, int max, int min)     RETORNA true SE O NUMERO ESTIVER FORA DO INTERVALO E false SE ESTIVER DENTRO
 
 */
 int randomInteger(int SupLimit, int InfLimit) {
@@ -25,7 +33,7 @@ void randomAlphaNumeric(char* code) {
     code[4] = '\0';
 }
 
-Horario passTime(Horario Time, int forward){
+Horario passTime(Horario Time, int forward) {
     Time.minuto += forward;
     Time.hora += floor((double) Time.minuto / 60);
     Time.minuto = (1020+Time.minuto) % 60;
@@ -49,7 +57,7 @@ unsigned int string_to_seed(const char *str) {
     return seed;
 }
 
-bool digitCheck(char key[]){
+bool digitCheck(char key[]) {
     for (unsigned int i = 0; i < strlen(key); i++)
     {
         if(!isdigit(key[i]) && key[i]!='\n')  return false;
@@ -57,41 +65,26 @@ bool digitCheck(char key[]){
     return true;
 }
 
-void ProximoVooPrint (Fila*emergencia,Fila*normal)
-{
+void ProximoVooPrint (Fila*emergencia,Fila*normal) {
     No *a;
     printf("\n\n");
     if(!vaziaFila(emergencia)) 
     {
         a = emergencia -> ini;
-        printf("\t\tAtenção o próximo voo é de emergência!! \n");
-        printf("\t\tO codigo do próximo voo de emergência é: %s\n", a -> codigo);
-        printf("\t\tO Numero de passageiros do próximo de emergencia Voo é: %d\n", a ->numPassageiros);
+        printf("\t\tAtenï¿½ï¿½o o prï¿½ximo voo ï¿½ de emergï¿½ncia!! \n");
+        printf("\t\tO codigo do prï¿½ximo voo de emergï¿½ncia ï¿½: %s\n", a -> codigo);
+        printf("\t\tO Numero de passageiros do prï¿½ximo de emergencia Voo ï¿½: %d\n", a ->numPassageiros);
     }
     else if(!vaziaFila(normal))
     {
         a = normal -> ini;
-        printf("\t\tInformações do próximo voo \n");
-        printf("\t\tO código do próximo Voo é: %s\n", a -> codigo);
-        printf("\t\tO número de passageiros do próximo voo é: %d\n", a ->numPassageiros);
+        printf("\t\tInformaï¿½ï¿½es do prï¿½ximo voo \n");
+        printf("\t\tO cï¿½digo do prï¿½ximo Voo ï¿½: %s\n", a -> codigo);
+        printf("\t\tO nï¿½mero de passageiros do prï¿½ximo voo ï¿½: %d\n", a ->numPassageiros);
     }
     else {
-        printf("\t\tNão há voos previstos\n");
+        printf("\t\tNï¿½o hï¿½ voos previstos\n");
     }
-}
-
-No *ProximoVoo (Fila*emergencia, Fila*normal)
-{
-    No *a;
-    if(!vaziaFila(emergencia))
-    {
-        a = emergencia -> ini;
-    }
-    else
-    {
-        a = normal -> ini;
-    }
-    return a;
 }
 
 bool outOfRange(int number, int max, int min) {
