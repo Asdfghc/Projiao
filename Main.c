@@ -48,7 +48,7 @@ int main() {
 
     while (opcaoNum != 7) {
         do{
-            system("clear");
+            system("cls");
             printf("\n\tHorario atual: %.2d:%.2d\n", horarioSistema.hora, horarioSistema.minuto);
             printf("\n\t\t1. Inserir uma aeronave a fila de espera para o pouso\n");
             printf("\t\t2. Autorizar uma aeronave a pousar\n");
@@ -65,7 +65,7 @@ int main() {
         }while(!digitCheck(opcao) || outOfRange(opcaoNum,8,0));
 
 
-        system("clear");
+        system("cls");
         switch (opcaoNum) {
             case 1:
                 randomAlphaNumeric(codVoo);
@@ -81,8 +81,7 @@ int main() {
                 else {
                     insereFila(normal,codVoo,horaEsperada,numPassageiros, -2);
                 }
-                //system("pause");
-                getchar();
+                system("pause");
                 break;
 
             case 2:
@@ -121,19 +120,16 @@ int main() {
                 {
                     printf("\n\t Nenhum voo em espera\n\n\n");
                 }
-                //system("pause");
-                getchar();
+                system("pause");
                 break;
 
             case 4:
                 ProximoVooPrint(emergencia,normal);
-                //system("pause");
-                getchar();
+                system("pause");
                 break;
             case 5:
                 imprimeFilaComCheckHora(pouso);
-                //system("pause");
-                getchar();
+                system("pause");
                 break;
             case 6:
                 do {
@@ -166,8 +162,7 @@ int main() {
                 imprimeFilaComCheckHora(aux);
                 aux = liberaFila(aux);
                 free(aux);
-                //system("pause");
-                getchar();
+                system("pause");
                 break;
             case 7:
                 printf("\n\n\tSistema encerrado\n\n");
@@ -179,13 +174,11 @@ int main() {
                 imprimeFilaComCheckHora(emergencia);
                 printf("FILA POUSADOS\n");
                 imprimeFilaComCheckHora(pouso);
-                //system("pause");
-                getchar();
+                system("pause");
                 break;
             default:
                 printf("\n\n\t Digite uma opcao valida\n\n");
-                //system("pause");
-                getchar();
+                system("pause");
                 break;
         }
     }
