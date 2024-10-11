@@ -15,13 +15,13 @@ int main() {
     setlocale(LC_ALL, "Portuguese");
     char input[10];    //String que vai registrar a seed
 
-    printf("\n\tDigite a seed desejada para gera��o dos numeros: ");    //Leitura da seed
+    printf("\n\tDigite a seed desejada para geração dos numeros: ");    //Leitura da seed
     fgets(input, sizeof(input), stdin);
 
     unsigned int seed = string_to_seed(input);  //Transforma a string em um int
     srand(seed);   // Inicializa a seed
 
-    Fila *emergencia = NULL;        //Cria��o das filas
+    Fila *emergencia = NULL;        //Criação das filas
     emergencia = criaFila();
 
     Fila *normal = NULL;
@@ -30,7 +30,7 @@ int main() {
     Fila *pouso = NULL;
     pouso = criaFila();
 
-    Horario horarioSistema;         //Cria��o do horario local
+    Horario horarioSistema;         //Criação do horario local
     horarioSistema.hora = randomInteger(23,1);      //Gera um horario local aleatorio 
     horarioSistema.minuto = randomInteger(59,1);
     
@@ -48,19 +48,19 @@ int main() {
     while (opcaoNum != 7) {
         do{
             system("cls");
-            printf("\n\tHor�rio atual: %.2d:%.2d\n", horarioSistema.hora, horarioSistema.minuto);
-            printf("\n\t\t1. Inserir uma aeronave � fila de espera para o pouso\n");
+            printf("\n\tHorário atual: %.2d:%.2d\n", horarioSistema.hora, horarioSistema.minuto);
+            printf("\n\t\t1. Inserir uma aeronave à fila de espera para o pouso\n");
             printf("\t\t2. Autorizar uma aeronave a pousar\n");
-            printf("\t\t3. Imprimir um Relat�rio com as aeronaves na fila para pouso\n");
-            printf("\t\t4. Imprimir a pr�xima aeronave que ser� autorizada a pousar\n");
-            printf("\t\t5. Imprimir todos os voos que j� pousaram\n");
+            printf("\t\t3. Imprimir um Relatório com as aeronaves na fila para pouso\n");
+            printf("\t\t4. Imprimir a próxima aeronave que será autorizada a pousar\n");
+            printf("\t\t5. Imprimir todos os voos que já pousaram\n");
             printf("\t\t6. Simular o processamento de pouso\n");
             printf("\t\t7. Finalizar o sistema\n");
-            printf("\n\tOp��o: ");
+            printf("\n\tOpção: ");
             fflush(stdin);
             fgets(opcao, sizeof(opcao), stdin);
             opcaoNum = atoi(opcao);
-            if(!digitCheck(opcao) || outOfRange(opcaoNum,8,0))    printf("\n\n\tErro! \t Digite um n�mero!\n\n");
+            if(!digitCheck(opcao) || outOfRange(opcaoNum,8,0))    printf("\n\n\tErro! \t Digite um número!\n\n");
         }while(!digitCheck(opcao) || outOfRange(opcaoNum,8,0));
 
 
@@ -70,11 +70,11 @@ int main() {
                 randomAlphaNumeric(codVoo);
                 printf("\tVoo %s\n\n",codVoo);
                 horaEsperada = passTime(horarioSistema, randomInteger(100, -100));
-                printf("\t\tHor�rio de chegada esperado: %.2d:%.2d\n", horaEsperada.hora, horaEsperada.minuto);
+                printf("\t\tHorário de chegada esperado: %.2d:%.2d\n", horaEsperada.hora, horaEsperada.minuto);
                 numPassageiros = randomInteger(200, 50);
-                printf("\t\tN�mero de passageiros: %d\n", numPassageiros);
+                printf("\t\tNúmero de passageiros: %d\n", numPassageiros);
                 optEmergencia = randomInteger(10, 0)<4 ? 1 : 0;
-                printf("\t\tVoo de emerg�ncia? %s\n", optEmergencia ? "Sim" : "N�o");
+                printf("\t\tVoo de emergência? %s\n", optEmergencia ? "Sim" : "Não");
 
                 if(optEmergencia)  insereFila(emergencia,codVoo,horaEsperada,numPassageiros, -2);
                 else {
@@ -96,19 +96,19 @@ int main() {
                     insereFila(pouso, aux->codigo, aux->horario, aux->numPassageiros, aux->checkHora);
                     horarioSistema = passTime(horarioSistema, 10);
                 } else {
-                    printf("\n\tN�o h� voos previstos");
+                    printf("\n\tNão há voos previstos");
                 }
                 break;
 
             case 3:
-                printf("\t \t LISTA DE VOOS DE EMERG�NCIA \n");
+                printf("\t \t LISTA DE VOOS DE EMERGÊNCIA \n");
                 if(!vaziaFila(emergencia))
                 {
                     imprimeFila(emergencia);
                 }
                 else
                 {
-                    printf("\n\t\tNenhum voo de emerg�ncia em espera\n\n\n");
+                    printf("\n\t\tNenhum voo de emergência em espera\n\n\n");
                 }
                 printf("\t \t LISTA DE VOOS \n");
                 if(!vaziaFila(normal))
@@ -132,11 +132,11 @@ int main() {
                 break;
             case 6:
                 do {
-                    printf("\n\n\tInsira o tempo a avan�ar (em minutos): ");
+                    printf("\n\n\tInsira o tempo a avançar (em minutos): ");
                     fflush(stdin);
                     fgets(inputMinutos, sizeof(inputMinutos), stdin);
                     minutos = atoi(inputMinutos);
-                    if (outOfRange(minutos,999,1) || !digitCheck(inputMinutos))     printf("\n\n\tO n�mero de minuto tem que ser no m�nimo 1 e no m�ximo 999!\n\n");
+                    if (outOfRange(minutos,999,1) || !digitCheck(inputMinutos))     printf("\n\n\tO número de minuto tem que ser no mínimo 1 e no máximo 999!\n\n");
                 } while(outOfRange(minutos,999,1) || !digitCheck(inputMinutos));
 
                 Horario horarioFinal = passTime(horarioSistema, minutos);
@@ -145,7 +145,7 @@ int main() {
                 Fila* aux = criaFila();
                 No* aux1 = emergencia->ini;
                 while(aux1 != NULL && comparaHorario(horarioSimulado, horarioFinal)) {
-                    printf("\n\n\tHor�rio de autoriza��o: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
+                    printf("\n\n\tHorário de autorização: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
                     aux1->checkHora = -1;
                     insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros, aux1->checkHora);
                     horarioSimulado = passTime (horarioSimulado, 10);
@@ -153,7 +153,7 @@ int main() {
                 }
                 aux1 = normal->ini;
                 while(aux1 != NULL && comparaHorario(horarioSimulado, horarioFinal)) {
-                    printf("\n\n\tHor�rio de autoriza��o: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
+                    printf("\n\n\tHorário de autorização: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
                     if(comparaHorario(passTime(aux1->horario, 15), horarioSimulado)) aux1->checkHora = 1;
                     else aux1->checkHora = 0;
                     insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros, aux1->checkHora);
@@ -171,14 +171,14 @@ int main() {
             case 8:
                 printf("FILA NORMAL\n");
                 imprimeFilaComCheckHora(normal);
-                printf("FILA EMERG�NCIA\n");
+                printf("FILA EMERGÊNCIA\n");
                 imprimeFilaComCheckHora(emergencia);
                 printf("FILA POUSADOS\n");
                 imprimeFilaComCheckHora(pouso);
                 system("pause");
                 break;
             default:
-                printf("\n\n\t Digite uma op��o v�lida\n\n");
+                printf("\n\n\t Digite uma opção válida\n\n");
                 system("pause");
                 break;
         }
