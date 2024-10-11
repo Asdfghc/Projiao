@@ -13,7 +13,7 @@ bool comparaHorario(Horario horario1, Horario horario2)     COMPARA DOIS HORARIO
 
 unsigned int string_to_seed(const char *str)    RETORNA UMA STRING COMO A SOMATORIA DO CODIGO ASC DE CADA CARACTER
 
-bool digitCheck(char key[])     RETORNA true SE NA STRING S� CONTER NUMEROS E false SE TIVER ALGO ALEM
+bool digitCheck(char key[])     RETORNA true SE NA STRING SÓ CONTER NUMEROS E false SE TIVER ALGO ALEM
 
 void ProximoVooPrint (Fila*emergencia,Fila*normal)     IMPRIME O PROXIMO VOO
 
@@ -84,19 +84,19 @@ void ProximoVooPrint (Fila*emergencia,Fila*normal) {
     if(!vaziaFila(emergencia)) 
     {
         a = emergencia -> ini;
-        printf("\t\tAtencao o proximo voo eh de emergencia!! \n");
-        printf("\t\tO codigo do proximo voo de emergencia: %s\n", a -> codigo);
-        printf("\t\tO Numero de passageiros do proximo de emergencia Voo: %d\n", a ->numPassageiros);
+        printf("\t\tAtenção, o próximo voo é de emergência!! \n");
+        printf("\t\tO código do próximo voo de emergência é: %s\n", a -> codigo);
+        printf("\t\tO Número de passageiros do próximo voo de emergencia é: %d\n", a ->numPassageiros);
     }
     else if(!vaziaFila(normal))
     {
         a = normal -> ini;
-        printf("\t\tInformacoes do proximo voo \n");
-        printf("\t\tO codigo do proximo Voo: %s\n", a -> codigo);
-        printf("\t\tO numero de passageiros do proximo voo: %d\n", a ->numPassageiros);
+        printf("\t\tInformações do próximo voo \n");
+        printf("\t\tO código do próximo voo é: %s\n", a -> codigo);
+        printf("\t\tO número de passageiros do próximo voo é: %d\n", a ->numPassageiros);
     }
     else {
-        printf("\t\tNao ha voos previstos\n");
+        printf("\t\tNão há voos previstos\n");
     }
 }
 
