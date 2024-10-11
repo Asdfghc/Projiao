@@ -9,7 +9,7 @@ void randomAlphaNumeric(char* code)     RETORNA UMA STRING ALEATORIA DE 4 CARACT
 
 Horario passTime(Horario Time, int forward)     RETORNA A PASSAGEM DE X MINUTOS
 
-bool comparaHorario(Horario horario1, Horario horario2)     COMPARA DOIS HORARIOS
+bool comparaHorario(Horario horario1, Horario horario2)     COMPARA DOIS HORARIOS, RETORNA TRUE SE O HORARIO2 FOR MAIOR
 
 unsigned int string_to_seed(const char *str)    RETORNA UMA STRING COMO A SOMATORIA DO CODIGO ASC DE CADA CARACTER
 
@@ -25,26 +25,39 @@ int randomInteger(int SupLimit, int InfLimit) {
 }
 
 void randomAlphaNumeric(char* code) {
-    char alphabet[62] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    char alphabet[62] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";       //string contendo todos caracteres para o codigo
     for(int i = 0; i < 4; i++) {
-        int randomIndex = rand() % (sizeof(alphabet) - 1);
-        code[i] = alphabet[randomIndex];
+        int randomIndex = rand() % (sizeof(alphabet) - 1);      //gera uma posição aleatoria da string
+        code[i] = alphabet[randomIndex];        //insere o valor aleatorio escolhido
     }
-    code[4] = '\0';
+    code[4] = '\0';     //adiciona a finalização da string
 }
+
+
 
 Horario passTime(Horario Time, int forward) {
     Time.minuto += forward;
-    Time.hora += floor((double) Time.minuto / 60);
-    Time.minuto = (1020+Time.minuto) % 60;
-    Time.hora = (24+Time.hora) % 24;
+    // Adjust hours based on overflow or underflow in minutes
+    Time.hora += Time.minuto / 60;
+    Time.minuto = (60 + Time.minuto % 60) % 60; // Wrap minutes correctly
+
+    Time.dia += Time.hora / 24;
+    // Wrap hours correctly considering underflow when moving backwards
+    Time.hora = (24 + Time.hora % 24) % 24;
+
     return Time;
 }
 
 bool comparaHorario(Horario horario1, Horario horario2) {
+
+    if (horario1.dia < horario2.dia)    return true;
+
+    if (horario1.dia > horario2.dia)    return false;
+
     if (horario1.hora < horario2.hora) return true;
-    if (horario1.hora == 23 && horario2.hora == 0) return true;
+
     if (horario1.hora == horario2.hora && horario1.minuto < horario2.minuto) return true;
+
     return false;
 }
 

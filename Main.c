@@ -13,12 +13,12 @@
 int main() {
 
     setlocale(LC_ALL, "Portuguese");
-    char input[10];    //String que vai registrar a seed
+    char seedInput[10];    //String que vai registrar a seed
 
-    printf("\n\tDigite a seed desejada para geração dos numeros: ");    //Leitura da seed
-    fgets(input, sizeof(input), stdin);
+    printf("\n\tDigite a seed desejada para geração dos números: ");    //Leitura da seed
+    fgets(seedInput, sizeof(seedInput), stdin);
 
-    unsigned int seed = string_to_seed(input);  //Transforma a string em um int
+    unsigned int seed = string_to_seed(seedInput);  //Transforma a string em um int
     srand(seed);   // Inicializa a seed
 
     Fila *emergencia = NULL;        //Criação das filas
@@ -30,9 +30,10 @@ int main() {
     Fila *pouso = NULL;
     pouso = criaFila();
 
-    Horario horarioSistema;         //Criação do horario local
-    horarioSistema.hora = randomInteger(23,1);      //Gera um horario local aleatorio 
+    Horario horarioSistema;         //Criação do horário local
+    horarioSistema.hora = randomInteger(23,1);      //Gera um horário local aleatório 
     horarioSistema.minuto = randomInteger(59,1);
+    horarioSistema.dia = 0;
     
     char opcao[3];
     int opcaoNum = 0;
@@ -145,7 +146,6 @@ int main() {
                 Fila* aux = criaFila();
                 No* aux1 = emergencia->ini;
                 while(aux1 != NULL && comparaHorario(horarioSimulado, horarioFinal)) {
-                    printf("\n\n\tHorário de autorização: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
                     aux1->checkHora = -1;
                     insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros, aux1->checkHora);
                     horarioSimulado = passTime (horarioSimulado, 10);
@@ -153,7 +153,6 @@ int main() {
                 }
                 aux1 = normal->ini;
                 while(aux1 != NULL && comparaHorario(horarioSimulado, horarioFinal)) {
-                    printf("\n\n\tHorário de autorização: %.2d:%.2d", horarioSimulado.hora, horarioSimulado.minuto);
                     if(comparaHorario(passTime(aux1->horario, 15), horarioSimulado)) aux1->checkHora = 1;
                     else aux1->checkHora = 0;
                     insereFila(aux, aux1->codigo, aux1->horario, aux1->numPassageiros, aux1->checkHora);

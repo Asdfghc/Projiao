@@ -24,6 +24,7 @@ int tamanhoFila (Fila* f) RETORNA O TAMANHO DA FILA
 typedef struct Horario {
     int hora;
     int minuto;
+    int dia;
 } Horario;
 
 typedef struct No {
@@ -84,11 +85,15 @@ No* retiraFila (Fila* f) {
 
 void imprimeFilaComCheckHora (Fila* f)
 {
+    system("cls");
     No* q;
-    printf("\n\t\tCódigo\tHorário\tNúmero de Passageiros\t\tCheck-Hora\n\n");
+    printf("\n\t\tCodigo\t\tHorario \tNumero de Passageiros\t\tCheck-Hora\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
-        printf("\t\t%s\t%.2d:%.2d\t%d\t\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
+        if(q->checkHora == -1)  printf("\t\t%s\t\t%.2d:%.2d\t\t\t%d \t \t \t   %d\n\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
+        else{
+            printf("\t\t%s\t\t%.2d:%.2d\t\t\t%d \t \t \t    %d\n\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
+        }
     }
     printf("\n");
 }
@@ -99,7 +104,7 @@ void imprimeFila (Fila* f)
     printf("\n\t\tCódigo\tHorário\tNúmero de Passageiros\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
-        printf("\t\t%s\t%.2d:%.2d\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros);
+        printf("\t\t%s\t%.2d:%.2d\t\t%d\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros);
     }
     printf("\n");
 }
