@@ -38,7 +38,7 @@ Horario passTime(Horario Time, int forward) {
     Time.minuto += forward;     //soma os minutos
     Time.hora += floor((float) Time.minuto / 60);    //adiciona as horas necessarias
     Time.minuto = (60 + Time.minuto % 60) % 60;     // Ajusta os minutos
-    Time.dia += Time.hora / 24;     //adciona o dia se necessario
+    Time.dia += floor((float) Time.hora / 24);     //adciona o dia se necessario
 
     Time.hora = (24 + Time.hora % 24) % 24;     //Ajusta as horas
 
