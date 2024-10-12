@@ -5,15 +5,15 @@
 
 Fila* criaFila()  CRIA A FILA
 
-int vaziaFila (Fila* f) VERIFICA SE A FILA ESTA VAIZA
+bool vaziaFila (Fila* f) VERIFICA SE A FILA ESTA VAIZA, RETORNA TRUE SE SIM
 
 void insereFila (Fila* f, int v) INSERSAO
 
 int retiraFila (Fila* f) REMOCAO
 
-void imprimeFilaComCheckHora (Fila* f) IMPRIME A FILA COM O CHECK_HORA
+void imprimeFilaComCheckHora (Fila* f) IMPRIME A FILA COM A VARIAVEL CHECK_HORA
 
-void imprimeFila (Fila* f) IMPRIME A FILA
+void imprimeFila (Fila* f) IMPRIME A FILA SEM A VARIAVEL CHECK_HORA
 
 Fila* liberaFila (Fila* f) LIBERA A FILA
 
@@ -83,11 +83,10 @@ No* retiraFila (Fila* f) {
     return aux;
 }
 
-void imprimeFilaComCheckHora (Fila* f)
-{
+void imprimeFilaComCheckHora (Fila* f) {
     system("cls");
     No* q;
-    printf("\n\t\tCódigo\t\tHorário \tNúmero de Passageiros\t\tCheck-Hora\n\n");
+    printf("\n\t\tCodigo\t\tHorario \tNumero de Passageiros\t\tCheck-Hora\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
         if(q->checkHora == -1)  printf("\t\t%s\t\t%.2d:%.2d\t\t\t%d \t \t \t   %d\n\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros, q->checkHora);
@@ -98,10 +97,9 @@ void imprimeFilaComCheckHora (Fila* f)
     printf("\n\n");
 }
 
-void imprimeFila (Fila* f)
-{
+void imprimeFila (Fila* f) {
     No* q;
-    printf("\n\t\tCódigo\t\tHorário \tNúmero de Passageiros\n\n");
+    printf("\n\t\tCodigo\t\tHorario \tNumero de Passageiros\n\n");
     for (q=f->ini; q!=NULL; q=q->prox)
     {
         printf("\t\t%s\t\t%.2d:%.2d\t\t\t%d\n\n",q->codigo, q->horario.hora, q->horario.minuto, q->numPassageiros);
@@ -109,8 +107,7 @@ void imprimeFila (Fila* f)
     printf("\n\n");
 }
 
-Fila* liberaFila (Fila* f)
-{
+Fila* liberaFila (Fila* f) {
     No* q = f->ini;
     while (q!=NULL)
     {

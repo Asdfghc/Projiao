@@ -5,21 +5,22 @@
 
 int randomInteger(int SupLimit, int InfLimit)   RETORNA UM NUMERO ALEATORIO EM CERTO INTERVALO DEFINIDO
 
-void randomAlphaNumeric(char* code)     RETORNA UMA STRING ALEATORIA DE 4 CARACTERES
+void randomAlphaNumeric(char* code)     GERA UMA STRING ALEATORIA DE 4 CARACTERESQ ALFANUMERICOS
 
 Horario passTime(Horario Time, int forward)     RETORNA A PASSAGEM DE X MINUTOS
 
-bool comparaHorario(Horario horario1, Horario horario2)     COMPARA DOIS HORARIOS, RETORNA TRUE SE O HORARIO2 FOR MAIOR
+bool comparaHorario(Horario horario1, Horario horario2)     COMPARA DOIS HORARIOS, RETORNA TRUE SE O HORARIO 2 FOR MAIOR
 
 unsigned int string_to_seed(const char *str)    RETORNA UMA STRING COMO A SOMATORIA DO CODIGO ASC DE CADA CARACTER
 
-bool digitCheck(char key[])     RETORNA true SE NA STRING SÓ CONTER NUMEROS E false SE TIVER ALGO ALEM
+bool digitCheck(char key[])     RETORNA TRUE SE NA STRING SÓ CONTER NUMEROS
 
 void ProximoVooPrint (Fila*emergencia,Fila*normal)     IMPRIME O PROXIMO VOO
 
-bool outOfRange(int number, int max, int min)     RETORNA true SE O NUMERO ESTIVER FORA DO INTERVALO E false SE ESTIVER DENTRO
+bool outOfRange(int number, int max, int min)     RETORNA TRUE SE O NUMERO ESTIVER FORA DO INTERVALO
 
 */
+
 int randomInteger(int SupLimit, int InfLimit) {
     return rand() % (SupLimit + 1 - InfLimit) + InfLimit;
 }
@@ -33,17 +34,13 @@ void randomAlphaNumeric(char* code) {
     code[4] = '\0';     //adiciona a finalização da string
 }
 
-
-
 Horario passTime(Horario Time, int forward) {
-    Time.minuto += forward;
-    // Adjust hours based on overflow or underflow in minutes
-    Time.hora += floor( Time.minuto / 60);
-    Time.minuto = (60 + Time.minuto % 60) % 60; // Wrap minutes correctly
+    Time.minuto += forward;     //soma os minutos
+    Time.hora += floor((float) Time.minuto / 60);    //adiciona as horas necessarias
+    Time.minuto = (60 + Time.minuto % 60) % 60;     // Ajusta os minutos
+    Time.dia += Time.hora / 24;     //adciona o dia se necessario
 
-    Time.dia += Time.hora / 24;
-    // Wrap hours correctly considering underflow when moving backwards
-    Time.hora = (24 + Time.hora % 24) % 24;
+    Time.hora = (24 + Time.hora % 24) % 24;     //Ajusta as horas
 
     return Time;
 }
@@ -63,7 +60,7 @@ unsigned int string_to_seed(const char *str) {
     unsigned int seed = 0;
     for(int i = 0; str[i]!= '\0';i++)
     {
-        seed += (unsigned int)str[i];
+        seed += (unsigned int)str[i];       //soma todos os valores ASC de uma string
     }
     return seed;
 }
@@ -71,30 +68,30 @@ unsigned int string_to_seed(const char *str) {
 bool digitCheck(char key[]) {
     for (unsigned int i = 0; i < strlen(key); i++)
     {
-        if(!isdigit(key[i]) && key[i]!='\n')  return false;
+        if(!isdigit(key[i]) && key[i]!='\n')  return false;     //roda por toda a string verificando se o caracter é digito
     }
     return true;
 }
 
 void ProximoVooPrint (Fila*emergencia,Fila*normal) {
-    No *a;
+    No *auxPrint;
     printf("\n\n");
-    if(!vaziaFila(emergencia)) 
+    if(!vaziaFila(emergencia))      //printa o proximo voo
     {
-        a = emergencia -> ini;
-        printf("\n\n\tAtenção, o próximo voo é de emergência!! \n");
-        printf("\t\tO código do próximo voo de emergência é: %s\n", a -> codigo);
-        printf("\t\tO Número de passageiros do próximo voo de emergencia é: %d\n", a ->numPassageiros);
+        auxPrint = emergencia -> ini;
+        printf("\n\n\tAtencao, o proximo voo eh de emergencia!! \n");
+        printf("\t\tO codigo do proximo voo de emergencia: %s\n", auxPrint -> codigo);
+        printf("\t\tO Numero de passageiros do proximo voo de emergencia: %d\n", auxPrint ->numPassageiros);
     }
     else if(!vaziaFila(normal))
     {
-        a = normal -> ini;
-        printf("\n\n\tInformações do próximo voo \n");
-        printf("\t\tO código do próximo voo é: %s\n", a -> codigo);
-        printf("\t\tO número de passageiros do próximo voo é: %d\n", a ->numPassageiros);
+        auxPrint = normal -> ini;
+        printf("\n\n\tInformacoes do proximo voo \n");
+        printf("\t\tO codigo do proximo voo: %s\n", auxPrint -> codigo);
+        printf("\t\tO numero de passageiros do proximo voo: %d\n", auxPrint ->numPassageiros);
     }
     else {
-        printf("\n\n\t\tNão há voos previstos\n");
+        printf("\n\n\t\tNão ha voos previstos\n");
     }
 }
 
