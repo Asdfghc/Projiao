@@ -38,7 +38,7 @@ void randomAlphaNumeric(char* code) {
 Horario passTime(Horario Time, int forward) {
     Time.minuto += forward;
     // Adjust hours based on overflow or underflow in minutes
-    Time.hora += Time.minuto / 60;
+    Time.hora += floor((double) Time.minuto / 60);
     Time.minuto = (60 + Time.minuto % 60) % 60; // Wrap minutes correctly
 
     Time.dia += Time.hora / 24;
@@ -50,11 +50,9 @@ Horario passTime(Horario Time, int forward) {
 
 bool comparaHorario(Horario horario1, Horario horario2) {
 
-    if (horario1.dia < horario2.dia)    return true;
+    if (horario1.dia < horario2.dia) return true;
 
-    if (horario1.dia > horario2.dia)    return false;
-
-    if (horario1.hora < horario2.hora) return true;
+    if (horario1.dia == horario2.dia && horario1.hora < horario2.hora) return true;
 
     if (horario1.hora == horario2.hora && horario1.minuto < horario2.minuto) return true;
 
