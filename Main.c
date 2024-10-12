@@ -15,7 +15,8 @@ int main() {
     setlocale(LC_ALL, "Portuguese");
     char seedInput[10];    //String que vai registrar a seed
 
-    printf("\n\tDigite a seed desejada para geração dos números: ");    //Leitura da seed
+    system("cls");
+    printf("\n\n\tDigite a seed desejada para geração dos números: ");    //Leitura da seed
     fgets(seedInput, sizeof(seedInput), stdin);
 
     unsigned int seed = string_to_seed(seedInput);  //Transforma a string em um int
@@ -49,7 +50,7 @@ int main() {
     while (opcaoNum != 7) {
         do{
             system("cls");
-            printf("\n\tHorário atual: %.2d:%.2d\n", horarioSistema.hora, horarioSistema.minuto);
+            printf("\n\n\tHorário atual: %.2d:%.2d\n", horarioSistema.hora, horarioSistema.minuto);
             printf("\n\t\t1. Inserir uma aeronave à fila de espera para o pouso\n");
             printf("\t\t2. Autorizar uma aeronave a pousar\n");
             printf("\t\t3. Imprimir um Relatório com as aeronaves na fila para pouso\n");
@@ -61,7 +62,11 @@ int main() {
             fflush(stdin);
             fgets(opcao, sizeof(opcao), stdin);
             opcaoNum = atoi(opcao);
-            if(!digitCheck(opcao) || outOfRange(opcaoNum,8,0))    printf("\n\n\tErro! \t Digite um número!\n\n");
+            if(!digitCheck(opcao) || outOfRange(opcaoNum,8,0))    {
+                system("cls");
+                printf("\n\n\n\tErro! \t Digite uma opção!\n\n");
+                system("pause");
+            }
         }while(!digitCheck(opcao) || outOfRange(opcaoNum,8,0));
 
 
@@ -69,7 +74,7 @@ int main() {
         switch (opcaoNum) {
             case 1:
                 randomAlphaNumeric(codVoo);
-                printf("\tVoo %s\n\n",codVoo);
+                printf("\n\n\tVoo %s\n\n",codVoo);
                 horaEsperada = passTime(horarioSistema, randomInteger(100, -100));
                 printf("\t\tHorário de chegada esperado: %.2d:%.2d\n", horaEsperada.hora, horaEsperada.minuto);
                 numPassageiros = randomInteger(200, 50);
@@ -166,6 +171,8 @@ int main() {
                 break;
             case 7:
                 printf("\n\n\tSistema encerrado\n\n");
+                system("pause");
+                system("cls");
                 break;
             case 8:
                 printf("FILA NORMAL\n");

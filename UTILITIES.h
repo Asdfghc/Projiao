@@ -38,7 +38,7 @@ void randomAlphaNumeric(char* code) {
 Horario passTime(Horario Time, int forward) {
     Time.minuto += forward;
     // Adjust hours based on overflow or underflow in minutes
-    Time.hora += floor((double) Time.minuto / 60);
+    Time.hora += floor( Time.minuto / 60);
     Time.minuto = (60 + Time.minuto % 60) % 60; // Wrap minutes correctly
 
     Time.dia += Time.hora / 24;
@@ -82,19 +82,19 @@ void ProximoVooPrint (Fila*emergencia,Fila*normal) {
     if(!vaziaFila(emergencia)) 
     {
         a = emergencia -> ini;
-        printf("\t\tAtenção, o próximo voo é de emergência!! \n");
+        printf("\n\n\tAtenção, o próximo voo é de emergência!! \n");
         printf("\t\tO código do próximo voo de emergência é: %s\n", a -> codigo);
         printf("\t\tO Número de passageiros do próximo voo de emergencia é: %d\n", a ->numPassageiros);
     }
     else if(!vaziaFila(normal))
     {
         a = normal -> ini;
-        printf("\t\tInformações do próximo voo \n");
+        printf("\n\n\tInformações do próximo voo \n");
         printf("\t\tO código do próximo voo é: %s\n", a -> codigo);
         printf("\t\tO número de passageiros do próximo voo é: %d\n", a ->numPassageiros);
     }
     else {
-        printf("\t\tNão há voos previstos\n");
+        printf("\n\n\t\tNão há voos previstos\n");
     }
 }
 
